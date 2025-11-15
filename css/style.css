@@ -178,11 +178,11 @@ body {
 /* ========= STOP / SPEED BUTTONS (DESKTOP) ========= */
 #stopBtnArcade {
     position: fixed;
-    top: 50%;            /* ADDED — fixes desktop placement */
+    top: 50%;
 }
 #speedBtnArcade {
     position: fixed;
-    top: 63%;            /* ADDED — fixes desktop placement */
+    top: 63%;
 }
 
 #stopBtnArcade,
@@ -192,6 +192,10 @@ body {
     padding: 18px 45px;
     font-size: 40px;
     font-weight: 900;
+
+    /* Mobile fix – prevents huge buttons */
+    max-width: 80%;
+    width: auto;
 }
 
 /* ========= 10X FLASH ========= */
