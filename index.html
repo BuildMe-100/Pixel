@@ -1,9 +1,50 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Pixel Count Arcade</title><style>body{margin:0;background:#000;overflow:hidden;font-family:Courier New,monospace;color:#fff}#title{position:fixed;top:5px;left:50%;transform:translateX(-50%);font-size:40px;font-weight:700;color:#ff0;z-index:2000}#hud{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;gap:10px}button{padding:10px 20px;font-size:18px;border-radius:6px;border:3px solid #0ff;background:#111;color:#fff;cursor:pointer}#targetBox{position:fixed;top:120px;left:50%;transform:translateX(-50%);text-align:center;display:none;z-index:2000}#targetNumber{padding:10px 20px;background:#222;border:3px solid #0f8;border-radius:8px;font-size:32px;color:#0f8}#instruction{font-size:18px;margin-top:4px;color:#cfc}#gameArea{position:fixed;inset:0;z-index:1;overflow:hidden}#borderLine{position:fixed;display:none;border:4px solid #0f8;z-index:1500;pointer-events:none}#goTime{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:700;color:#0f8;display:none;z-index:1500}#stopBtnArcade{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);padding:20px 40px;font-size:40px;background:#f00;color:#fff;border:4px solid #f66;border-radius:10px;display:none;z-index:2000}#speedBtnArcade{position:fixed;top:60%;left:50%;transform:translateX(-50%);padding:14px 30px;font-size:22px;background:#08f;border:3px solid #4cf;color:#fff;border-radius:8px;display:none;z-index:2000}#tenXFlash{position:fixed;top:70%;left:50%;transform:translateX(-50%);font-size:80px;color:#f00;font-weight:700;display:none;z-index:3000}#finalNumber{position:fixed;top:30%;left:50%;transform:translate(-50%,-50%);font-size:100px;font-weight:700;color:#ff5;display:none;z-index:2000}#resultBox{position:fixed;top:55%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:20px 30px;border-radius:10px;border:3px solid #000;font-size:24px;display:none;z-index:2000;text-align:center}</style></head><body><div id=title>PIXEL COUNT</div><div id=hud><button id=startBtn>START</button><button id=resetBtn>RESET</button></div><div id=targetBox><div id=targetNumber></div><div id=instruction>Stop at this number</div></div><div id=gameArea></div><div id=borderLine></div><div id=goTime>GO TIME!</div><button id=stopBtnArcade>STOP</button><button id=speedBtnArcade>↑↑ SPEED UP ↑↑</button><div id=tenXFlash>10X</div><div id=finalNumber></div><div id=resultBox></div><script>
-let gameRunning=false,pixelCount=0,spawnRate=800,targetNumber,spawnInterval,speedInterval;
-function spawnPixel(){if(!gameRunning)return;const g=document.getElementById("gameArea"),p=document.createElement("div");p.style.position="absolute";p.style.width="14px";p.style.height="14px";p.style.transform="rotate(45deg)";p.style.background=`#${Math.floor(Math.random()*0xffffff).toString(16)}`;p.style.left=Math.random()*innerWidth+"px";p.style.top=Math.random()*innerHeight+"px";g.appendChild(p);pixelCount++;}
-function animateBorder(cb){const b=document.getElementById("borderLine");b.style.display="block";b.style.left="0";b.style.top="0";let s=0,p=0,W=innerWidth,H=innerHeight;const i=setInterval(()=>{p+=20;if(s==0){b.style.width=p+"px";if(p>=W)s=1,p=0;}else if(s==1){b.style.height=p+"px";if(p>=H)s=2,p=0;}else if(s==2){b.style.left=p+"px";b.style.width=W-p+"px";if(p>=W)s=3,p=0;}else{b.style.top=p+"px";b.style.height=H-p+"px";if(p>=H){clearInterval(i);b.style.display="none";const g=document.getElementById("goTime");g.style.display="block";setTimeout(()=>{g.style.display="none";cb();},900)}}},10);}
-document.getElementById("startBtn").onclick=()=>{if(gameRunning)return;gameRunning=true;pixelCount=0;spawnRate=800;document.getElementById("gameArea").innerHTML="";targetNumber=Math.floor(Math.random()*3630)+69;document.getElementById("targetBox").style.display="block";document.getElementById("targetNumber").innerText=targetNumber;animateBorder(()=>{document.getElementById("stopBtnArcade").style.display="block";document.getElementById("speedBtnArcade").style.display="block";spawnInterval=setInterval(spawnPixel,spawnRate);speedInterval=setInterval(()=>{spawnRate=Math.max(3,spawnRate/10);clearInterval(spawnInterval);spawnInterval=setInterval(spawnPixel,spawnRate);},3000);});};
-document.getElementById("speedBtnArcade").onclick=()=>{if(!gameRunning)return;spawnRate=Math.max(3,spawnRate/10);clearInterval(spawnInterval);spawnInterval=setInterval(spawnPixel,spawnRate);const x=document.getElementById("tenXFlash");x.style.display="block";setTimeout(()=>x.style.display="none",1500);};
-document.getElementById("stopBtnArcade").onclick=()=>{if(!gameRunning)return;gameRunning=false;clearInterval(spawnInterval);clearInterval(speedInterval);document.getElementById("stopBtnArcade").style.display="none";document.getElementById("speedBtnArcade").style.display="none";document.getElementById("finalNumber").innerText=pixelCount;document.getElementById("finalNumber").style.display="block";document.getElementById("resultBox").innerText=`You were ${Math.abs(pixelCount-targetNumber)} away.`;document.getElementById("resultBox").style.display="block";};
-document.getElementById("resetBtn").onclick=()=>{gameRunning=false;clearInterval(spawnInterval);clearInterval(speedInterval);document.getElementById("gameArea").innerHTML="";document.getElementById("finalNumber").style.display="none";document.getElementById("resultBox").style.display="none";document.getElementById("targetBox").style.display="none";document.getElementById("stopBtnArcade").style.display="none";document.getElementById("speedBtnArcade").style.display="none";};
-</script></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pixel Count Arcade</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/arcade-ui.css"></head><body>
+<div id="crt-filter"></div>
+<h1 id="title">PIXEL COUNT</h1>
+<div id="hud">
+<button id="startBtn">START</button>
+<button id="resetBtn">RESET</button>
+</div>
+
+<div id="insert-coin" class="hidden">
+<div class="coin-frame">
+<div class="coin-text">INSERT COIN</div>
+</div>
+</div>
+
+<div id="targetBox" class="hidden">
+<div id="targetNumber"></div>
+<div id="instruction">Stop at this number</div>
+</div>
+
+<div id="gameArea"></div>
+
+<div id="borderLine"></div>
+<div id="goTime" class="hidden">GO TIME!</div>
+
+<button id="stopBtnArcade" class="hidden">STOP</button>
+<button id="speedBtnArcade" class="hidden">↑↑ SPEED UP ↑↑</button>
+<div id="tenXFlash" class="hidden">10X</div>
+
+<div id="finalNumber" class="hidden"></div>
+<div id="resultBox" class="hidden"></div>
+
+<div id="leaderboardPanel" class="hidden">
+<div class="lb-frame">
+<h2>HIGH SCORES</h2>
+<ol id="leaderboardList"></ol>
+<button id="closeLeaderboard">CLOSE</button>
+</div>
+</div>
+
+<script src="js/audio.js"></script>
+<script src="js/pixels.js"></script>
+<script src="js/border.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/modes.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/crt.js"></script>
+<script src="js/game.js"></script>
+
+</body></html>
+
