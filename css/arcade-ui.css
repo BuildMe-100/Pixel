@@ -1,1 +1,101 @@
+/* ============================================
+   ARCADE BUTTONS & UI ELEMENTS
+=============================================== */
+
+/* -------- STOP BUTTON (Arcade Emergency Style) -------- */
+#stopBtnArcade {
+    position: fixed;
+    padding: 28px 60px;
+    font-size: 48px;
+    font-weight: 900;
+    background: #ff0033;
+    color: #fff;
+    border: 5px solid #ff6666;
+    border-radius: 16px;
+    text-shadow: 0 0 10px #fff;
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 45px #ff3333,
+        inset 0 0 12px #660000;
+    z-index: 3000;
+    cursor: pointer;
+
+    animation: stopButtonPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes stopButtonPulse {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    50%  { transform: translate(-50%, -50%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Shockwave on click */
+.stop-shockwave {
+    animation: shockwave 0.5s ease-out;
+}
+
+@keyframes shockwave {
+    0%   { box-shadow: 0 0 0px 0px rgba(255,0,0,0.7); }
+    100% { box-shadow: 0 0 60px 40px rgba(255,0,0,0); }
+}
+
+/* -------- SPEED UP BUTTON (Electric Blue Style) -------- */
+#speedBtnArcade {
+    padding: 18px 45px;
+    font-size: 30px;
+    font-weight: bold;
+    background: #0099ff;
+    border: 4px solid #33ccff;
+    border-radius: 14px;
+    color: #fff;
+
+    text-shadow: 0 0 8px #fff;
+    box-shadow:
+        0 0 18px #0099ff,
+        inset 0 0 8px #003355;
+
+    cursor: pointer;
+    z-index: 3000;
+
+    animation: speedPulse 1.1s infinite alternate;
+}
+
+@keyframes speedPulse {
+    from { box-shadow: 0 0 16px #0088ff; }
+    to   { box-shadow: 0 0 28px #33ccff; }
+}
+
+/* -------- 10X FLASH (under speed-up button) -------- */
+#tenXFlash {
+    font-size: 80px;
+    font-weight: 900;
+    color: #ff0000;
+
+    text-shadow:
+        0 0 20px #ff2222,
+        0 0 50px #ff0000,
+        0 0 80px #ff3333;
+
+    animation: tenXblink 0.8s infinite alternate;
+    z-index: 2500;
+}
+
+@keyframes tenXblink {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    to   { opacity: 0.3; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* ============================================
+   ARCADE LEADERBOARD FRAME
+=============================================== */
+.lb-frame {
+    background: #000;
+    border: 4px solid #ff00cc;
+    box-shadow:
+        0 0 25px #ff00cc,
+        0 0 60px #990066;
+
+    border-radius: 16px;
+    padding: 35px 50px;
+    text-align: center;
 
