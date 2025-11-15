@@ -1,20 +1,32 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pixel Count Arcade</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/arcade-ui.css"></head><body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pixel Count Arcade</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/arcade-ui.css">
+</head>
+
+<body>
+
 <div id="crt-filter"></div>
+
 <h1 id="title">PIXEL COUNT</h1>
+
 <div id="hud">
 <button id="startBtn">START</button>
 <button id="resetBtn">RESET</button>
 </div>
 
 <div id="insert-coin" class="hidden">
-<div class="coin-frame">
-<div class="coin-text">INSERT COIN</div>
-</div>
+    <div class="coin-frame">
+        <div class="coin-text">INSERT COIN</div>
+    </div>
 </div>
 
 <div id="targetBox" class="hidden">
-<div id="targetNumber"></div>
-<div id="instruction">Stop at this number</div>
+    <div id="targetNumber"></div>
+    <div id="instruction">Stop at this number</div>
 </div>
 
 <div id="gameArea"></div>
@@ -30,19 +42,30 @@
 <div id="resultBox" class="hidden"></div>
 
 <div id="leaderboardPanel" class="hidden">
-<div class="lb-frame">
-<h2>HIGH SCORES</h2>
-<ol id="leaderboardList"></ol>
-<button id="closeLeaderboard">CLOSE</button>
+    <div class="lb-frame">
+        <h2>HIGH SCORES</h2>
+        <ol id="leaderboardList"></ol>
+        <button id="closeLeaderboard">CLOSE</button>
+    </div>
 </div>
-</div>
+
+<!-- ⭐ ONLY THING ADDED ⭐ -->
+<script>
+function updateVH() {
+    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+    document.documentElement.style.setProperty('--vw', (window.innerWidth * 0.01) + 'px');
+}
+updateVH();
+window.addEventListener('resize', updateVH);
+</script>
+<!-- ⭐ END OF ADDED CODE ⭐ -->
 
 <script src="js/audio.js"></script>
 <script src="js/pixels.js"></script>
 <script src="js/border.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/modes.js"></script>
-<script src="js/leaderboard.js"></script>
+script src="js/leaderboard.js"></script>
 <script src="js/crt.js"></script>
 <script src="js/game.js"></script>
 
