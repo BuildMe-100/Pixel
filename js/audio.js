@@ -3,11 +3,12 @@
 
 // Preload audio for smoother playback
 const SFX = {
-    insertCoin: new Audio("assets/sfx/insert-coin.mp3"),
-    tick:       new Audio("assets/sfx/tick.mp3"),
-    speed:      new Audio("assets/sfx/speedup.mp3"),
-    stop:       new Audio("assets/sfx/stop.mp3")
+    insertCoin: new Audio("assets/sfx/insert-coin.wav"),
+    tick:       new Audio("assets/sfx/tick.wav"),
+    speed:      new Audio("assets/sfx/speedup.wav"),
+    stop:       new Audio("assets/sfx/stop.wav")
 };
+
 
 // Adjust latency + allow overlapping playback
 for (const key in SFX) {
