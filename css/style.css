@@ -1,6 +1,5 @@
 /* ============================================================
    PIXEL COUNT — MAIN LAYOUT (style.css)
-   Handles: positioning, layout, z-index, mobile layout
    ============================================================ */
 
 /* -------- RESET -------- */
@@ -9,17 +8,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* ========= SAFARI / iPHONE SAFE AREA FIX ========= */
 html {
     height: -webkit-fill-available;
 }
-
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
     padding-top: env(safe-area-inset-top);
 }
 
+/* BASE BODY STYLE */
 body {
     background: #000;
     font-family: 'Courier New', monospace;
@@ -59,14 +59,10 @@ body {
     font-size: 48px;
     font-weight: 900;
     color: #ffea00;
-
-    text-shadow:
-        0 0 10px #ffea00,
-        0 0 30px #ffaa00,
-        0 0 60px #ff5500;
+    text-shadow: 0 0 10px #ffea00, 0 0 30px #ffaa00, 0 0 60px #ff5500;
 }
 
-/* -------- HUD (Start / Reset) -------- */
+/* -------- HUD -------- */
 #hud {
     top: 80px;
     left: 50%;
@@ -74,7 +70,6 @@ body {
     display: flex;
     gap: 12px;
 }
-
 #hud button {
     padding: 12px 28px;
     font-size: 22px;
@@ -82,12 +77,11 @@ body {
     border: 3px solid #00eaff;
     background: #111;
     color: #fff;
-
     text-shadow: 0 0 6px #00eaff;
     box-shadow: 0 0 12px #00eaff;
 }
 
-/* -------- TARGET BOX -------- */
+/* -------- TARGET -------- */
 #targetBox {
     position: fixed;
     top: 160px;
@@ -117,29 +111,6 @@ body {
     overflow: hidden;
 }
 
-/* -------- BORDER LINE -------- */
-#borderLine {
-    position: fixed;
-    display: none;
-    border: 4px solid #00ff88;
-    box-shadow: 0 0 15px #00ff88, 0 0 40px #00ffaa;
-}
-
-/* -------- GO TIME -------- */
-#goTime {
-    position: fixed;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 70px;
-    font-weight: 900;
-    color: #00ff88;
-    text-shadow:
-        0 0 15px #00ff88,
-        0 0 35px #00ffaa,
-        0 0 70px #00ffaa;
-}
-
 /* -------- FINAL NUMBER -------- */
 #finalNumber {
     position: fixed;
@@ -149,9 +120,7 @@ body {
     font-size: 110px;
     font-weight: bold;
     color: #ffee55;
-    text-shadow:
-        0 0 20px #ffee55,
-        0 0 40px #ffaa00;
+    text-shadow: 0 0 20px #ffee55, 0 0 40px #ffaa00;
 }
 
 /* -------- RESULT BOX -------- */
@@ -170,17 +139,16 @@ body {
     text-align: center;
 }
 
-/* -------- STOP / SPEED POSITIONING (NO STYLE) -------- */
+/* -------- STOP / SPEED BUTTON BASE POSITIONING -------- */
 #stopBtnArcade {
     position: fixed;
-    top: 50%;                /* Your choice: C */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 #speedBtnArcade {
     position: fixed;
-    top: 58%;                /* Your choice: C */
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -190,73 +158,11 @@ body {
     position: fixed;
     top: 68%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
-/* -------- Mobile Layout (iPhone 12–15 optimized) -------- */
-/* ====== MOBILE FIX — FINAL PROPER BUTTON SIZING ====== */
+/* ============================================================
+   MOBILE LAYOUT
+   ============================================================ */
+
 @media (max-width: 900px) {
-    #title {
-        top: calc(env(safe-area-inset-top) + 30px);
-        font-size: 32px;
-    }
-}
-
-
-    /* HUD buttons */
-    #hud {
-        top: 60px;
-    }
-    #hud button {
-        padding: 6px 14px;
-        font-size: 14px;
-    }
-
-    /* Target Box */
-    #targetBox {
-        top: 120px;
-    }
-    #targetNumber {
-        font-size: 30px;
-        padding: 8px 14px;
-    }
-
-    /* STOP button — smaller + lower */
-    #stopBtnArcade {
-        top: 56% !important;
-        font-size: 20px !important;
-        padding: 8px 18px !important;
-        animation: none !important;     /* removes scaling */
-    }
-
-    /* SPEED button — smaller + lower */
-    #speedBtnArcade {
-        top: 66% !important;
-        font-size: 12px !important;
-        padding: 6px 12px !important;
-        animation: none !important;     /* removes scaling */
-    }
-
-    /* 10X FLASH */
-    #tenXFlash {
-        top: 74%;
-        font-size: 40px;
-    }
-
-    /* Final number */
-    #finalNumber {
-        top: 38%;
-        font-size: 70px;
-    }
-
-    /* Result box */
-    #resultBox {
-        top: 63%;
-        font-size: 16px;
-        padding: 14px;
-    }
-}
-
-
-/* -------- Utility -------- */
-.hidden { display: none !important; }
