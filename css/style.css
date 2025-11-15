@@ -175,25 +175,18 @@ body {
     text-align: center;
 }
 
-/* ========= STOP / SPEED BUTTONS (DESKTOP) ========= */
+/* ========= STOP / SPEED POSITION ONLY (No size here) ========= */
 #stopBtnArcade {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    padding: 14px 34px;     /* 75% size */
-    font-size: 30px;
-    font-weight: 900;
+    transform: translateX(-50%) translateY(-50%);
 }
-
 #speedBtnArcade {
     position: fixed;
     top: 63%;
     left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 22px;     /* 50% size */
-    font-size: 20px;
-    font-weight: 900;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 /* ========= 10X FLASH ========= */
@@ -202,10 +195,6 @@ body {
     top: 72%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 70px;
-    color: #00aaff;
-    font-weight: 900;
-    text-shadow: 0 0 25px #00aaff;
     display: none;
 }
 
@@ -252,7 +241,6 @@ body {
 
     #hud {
         top: 55px;
-        gap: 8px;
     }
     #hud button {
         padding: 8px 16px;
@@ -270,22 +258,16 @@ body {
         font-size: 14px;
     }
 
-    /* Smaller STOP button on mobile */
+    /* Only adjust placement — sizing comes from arcade-ui.css */
     #stopBtnArcade {
-        font-size: 24px;
-        padding: 10px 24px;
         top: 52%;
     }
 
-    /* Smaller SPEED button on mobile */
     #speedBtnArcade {
-        font-size: 14px;
-        padding: 6px 16px;
         top: 67%;
     }
 
     #tenXFlash {
-        font-size: 50px;
         top: 77%;
     }
 
@@ -299,19 +281,5 @@ body {
         padding: 16px 20px;
         top: 65%;
         width: 80%;
-    }
-
-    .lb-frame {
-        padding: 20px;
-    }
-    .lb-frame h2 {
-        font-size: 28px;
-    }
-    .lb-frame li {
-        font-size: 18px;
-    }
-    #closeLeaderboard {
-        font-size: 18px;
-        padding: 8px 20px;
     }
 }
