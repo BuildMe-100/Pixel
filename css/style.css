@@ -305,3 +305,85 @@ body {
 .hidden {
     display: none !important;
 }
+/* ===================== MOBILE RESPONSIVE FIXES ===================== */
+@media (max-width: 900px) {
+
+    /* Title smaller so HUD doesn’t collide */
+    #title {
+        font-size: 32px;
+        top: 6px;
+    }
+
+    /* HUD buttons smaller + spaced */
+    #hud button {
+        padding: 8px 16px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+    #hud {
+        top: 55px;
+        gap: 8px;
+    }
+
+    /* Target box adjusted */
+    #targetBox {
+        top: 115px;
+    }
+    #targetNumber {
+        font-size: 34px;
+        padding: 10px 16px;
+    }
+    #instruction {
+        font-size: 14px;
+    }
+
+    /* STOP button smaller */
+    #stopBtnArcade {
+        font-size: 32px;
+        padding: 14px 32px;
+        top: 52%;
+    }
+
+    /* SPEED UP button smaller */
+    #speedBtnArcade {
+        font-size: 24px;
+        padding: 10px 26px;
+        top: 67%;
+    }
+
+    /* 10X flash smaller */
+    #tenXFlash {
+        font-size: 50px;
+        top: 77%;
+    }
+
+    /* Final score lower & smaller */
+    #finalNumber {
+        font-size: 80px;
+        top: 40%;
+    }
+
+    /* Result box scaled */
+    #resultBox {
+        font-size: 20px;
+        padding: 16px 20px;
+        top: 65%;
+        width: 80%;
+    }
+
+    /* Leaderboard smaller */
+    .lb-frame {
+        padding: 20px;
+        border-width: 3px;
+    }
+    .lb-frame h2 {
+        font-size: 28px;
+    }
+    .lb-frame li {
+        font-size: 18px;
+    }
+    #closeLeaderboard {
+        font-size: 18px;
+        padding: 8px 20px;
+    }
+}
