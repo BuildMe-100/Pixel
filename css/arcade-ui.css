@@ -1,87 +1,78 @@
 /* ============================================================
-   ARCADE UI — STOP, SPEED, 10X, and Button Effects
-   (Presentation-layer only — layout handled in style.css)
+   ARCADE UI — BUTTON STYLE ONLY (arcade-ui.css)
    ============================================================ */
 
-/* -------- STOP BUTTON (Arcade Emergency Red) -------- */
+/* -------- STOP BUTTON -------- */
 #stopBtnArcade {
-    padding: 18px 34px;       /* smaller desktop */
-    font-size: 32px;          /* 75% of original */
+    padding: 18px 34px;
+    font-size: 32px;
     font-weight: 900;
 
     background: #ff0033;
     color: #fff;
 
     border: 4px solid #ff6666;
-    border-radius: 14px;
+    border-radius: 16px;
 
     text-shadow: 0 0 10px #fff;
 
     box-shadow:
-        0 0 16px #ff0000,
-        0 0 40px #ff3333,
-        inset 0 0 10px #660000;
+        0 0 20px #ff0000,
+        0 0 45px #ff3333,
+        inset 0 0 12px #660000;
 
-    cursor: pointer;
-    animation: stopButtonPulse 1.3s ease-in-out infinite;
+    animation: stopButtonPulse 1.2s infinite ease-in-out;
 }
 
-/* STOP pulsing animation */
 @keyframes stopButtonPulse {
     0%   { transform: translate(-50%, -50%) scale(1); }
     50%  { transform: translate(-50%, -50%) scale(1.06); }
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Shockwave when clicked */
 .stop-shockwave {
     animation: shockwave 0.45s ease-out;
 }
 
 @keyframes shockwave {
     0%   { box-shadow: 0 0 0px 0px rgba(255,0,0,0.7); }
-    100% { box-shadow: 0 0 55px 35px rgba(255,0,0,0); }
+    100% { box-shadow: 0 0 60px 40px rgba(255,0,0,0); }
 }
 
-
-
-/* -------- SPEED UP BUTTON (Electric Blue) -------- */
+/* -------- SPEED BUTTON -------- */
 #speedBtnArcade {
-    padding: 10px 22px;       /* 50% of old size */
-    font-size: 20px;          /* smaller */
+    padding: 10px 22px;
+    font-size: 20px;
     font-weight: 900;
 
     background: #0099ff;
-    border: 3px solid #33ccff;
+    border: 4px solid #33ccff;
     border-radius: 12px;
     color: #fff;
 
-    text-shadow: 0 0 6px #fff;
+    text-shadow: 0 0 8px #fff;
 
     box-shadow:
-        0 0 12px #0099ff,
-        inset 0 0 6px #003355;
+        0 0 20px #0099ff,
+        inset 0 0 10px #003355;
 
-    cursor: pointer;
-    animation: speedPulse 1.0s infinite alternate;
+    animation: speedPulse 1s infinite alternate;
 }
 
 @keyframes speedPulse {
-    from { box-shadow: 0 0 14px #0088ff; }
-    to   { box-shadow: 0 0 24px #33ccff; }
+    from { box-shadow: 0 0 16px #0088ff; }
+    to   { box-shadow: 0 0 28px #33ccff; }
 }
 
-
-
-/* -------- TEN X FLASH -------- */
+/* -------- 10X FLASH -------- */
 #tenXFlash {
     font-size: 70px;
     font-weight: 900;
     color: #ff0000;
 
     text-shadow:
-        0 0 25px #ff2222,
-        0 0 55px #ff0000,
+        0 0 20px #ff2222,
+        0 0 50px #ff0000,
         0 0 80px #ff3333;
 
     animation: tenXblink 0.8s infinite alternate;
@@ -89,27 +80,5 @@
 
 @keyframes tenXblink {
     from { opacity: 1; transform: translateX(-50%) scale(1); }
-    to   { opacity: 0.5; transform: translateX(-50%) scale(1.15); }
-}
-
-
-
-/* ============================================================
-   MOBILE RESPONSIVE — smaller buttons for phones
-   ============================================================ */
-@media (max-width: 900px) {
-
-    #stopBtnArcade {
-        padding: 12px 26px;      /* reduced */
-        font-size: 22px;
-    }
-
-    #speedBtnArcade {
-        padding: 6px 14px;       /* reduced */
-        font-size: 14px;
-    }
-
-    #tenXFlash {
-        font-size: 50px;
-    }
+    to   { opacity: 0.5; transform: translateX(-50%) scale(1.12); }
 }
