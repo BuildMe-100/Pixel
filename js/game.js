@@ -1,28 +1,35 @@
-// === Pixel Count Arcade - Core Engine (Game Controller) ===
-// Minified for performance
+// === Pixel Count Arcade - Core Engine ===
+// Clean + corrected version
 
-let gameRunning=false,spawnInterval=900,pixelCount=0,target=0,spawnTimer=null,speedMultiplier=1;
+let gameRunning = false,
+    spawnInterval = 900,
+    pixelCount = 0,
+    target = 0,
+    spawnTimer = null,
+    speedMultiplier = 1;
 
-const gameArea=document.getElementById("gameArea"),
-targetBox=document.getElementById("targetBox"),
-targetNumber=document.getElementById("targetNumber"),
-finalNumber=document.getElementById("finalNumber"),
-resultBox=document.getElementById("resultBox"),
-stopBtn=document.getElementById("stopBtnArcade"),
-speedBtn=document.getElementById("speedBtnArcade"),
-hud=document.getElementById("hud"),
-tenXFlash=document.getElementById("tenXFlash"),
-startBtn=document.getElementById("startBtn"),
-resetBtn=document.getElementById("resetBtn"),
-insertCoin=document.getElementById("insert-coin"),
-goTime=document.getElementById("goTime");
+// DOM
+const gameArea       = document.getElementById("gameArea"),
+      targetBox      = document.getElementById("targetBox"),
+      targetNumber   = document.getElementById("targetNumber"),
+      finalNumber    = document.getElementById("finalNumber"),
+      resultBox      = document.getElementById("resultBox"),
+      stopBtn        = document.getElementById("stopBtnArcade"),
+      speedBtn       = document.getElementById("speedBtnArcade"),
+      hud            = document.getElementById("hud"),
+      tenXFlash      = document.getElementById("tenXFlash"),
+      startBtn       = document.getElementById("startBtn"),
+      resetBtn       = document.getElementById("resetBtn"),
+      insertCoin     = document.getElementById("insert-coin"),
+      goTime         = document.getElementById("goTime");
 
-function resetGame(){
+// === Reset ===
+function resetGame() {
     clearInterval(spawnTimer);
-    pixelCount=0;
-    speedMultiplier=1;
-    spawnInterval=900;
-    gameRunning=false;
+    pixelCount = 0;
+    speedMultiplier = 1;
+    spawnInterval = 900;
+    gameRunning = false;
 
     finalNumber.classList.add("hidden");
     resultBox.classList.add("hidden");
@@ -31,58 +38,63 @@ function resetGame(){
     tenXFlash.classList.add("hidden");
     targetBox.classList.add("hidden");
 
-    gameArea.innerHTML="";
+    gameArea.innerHTML = "";
     insertCoin.classList.remove("hidden");
 }
 
-resetBtn.addEventListener("click",resetGame);
+resetBtn.addEventListener("click", resetGame);
 
-startBtn.addEventListener("click",()=>{
-    if(gameRunning)return;
+// === START ===
+startBtn.addEventListener("click", () => {
+    if (gameRunning) return;
 
     audio_insertCoin();
     insertCoin.classList.add("hidden");
 
-    target=Math.floor(Math.random()*3630)+69;
-    targetNumber.textContent=target;
+    target = Math.floor(Math.random() * 3630) + 69;
+    targetNumber.textContent = target;
 
-    setTimeout(()=>border_startAnimation(()=>{
+    // Border animation → then game starts
+    setTimeout(() => border_startAnimation(() => {
         goTime.classList.remove("hidden");
-        setTimeout(()=>goTime.classList.add("hidden"),1800);
+        setTimeout(() => goTime.classList.add("hidden"), 1800);
 
-        gameRunning=true;
+        gameRunning = true;
         targetBox.classList.remove("hidden");
         stopBtn.classList.remove("hidden");
         speedBtn.classList.remove("hidden");
 
         startPixelSpawn();
-    }),200);
+    }), 200);
 });
 
-function startPixelSpawn(){
-    spawnTimer=setInterval(()=>{
+// === Pixel Spawning ===
+function startPixelSpawn() {
+    spawnTimer = setInterval(() => {
         pixelCount++;
         pixel_spawn(gameArea);
-        if(pixelCount%12===0)audio_tick();
-    },spawnInterval/speedMultiplier);
+        if (pixelCount % 12 === 0) audio_tick();
+    }, spawnInterval / speedMultiplier);
 }
 
-stopBtn.addEventListener("click",()=>{
-    if(!gameRunning)return;
-    gameRunning=false;
+// === STOP BUTTON ===
+stopBtn.addEventListener("click", () => {
+    if (!gameRunning) return;
+    gameRunning = false;
     clearInterval(spawnTimer);
 
     stopBtn.classList.add("stop-shockwave");
-    setTimeout(()=>stopBtn.classList.remove("stop-shockwave"),350);
+    setTimeout(() => stopBtn.classList.remove("stop-shockwave"), 350);
 
     audio_stop();
 
-    finalNumber.textContent=pixelCount;
+    // Show final number
+    finalNumber.textContent = pixelCount;
     finalNumber.classList.remove("hidden");
 
-    const diff=Math.abs(pixelCount-target);
-    
-    const funnyLines=[
+    const diff = Math.abs(pixelCount - target);
+
+    const funnyLines = [
         "You were lightyears off!",
         "Nice try, arcade warrior!",
         "Pixel chaos achieved!",
@@ -125,27 +137,27 @@ stopBtn.addEventListener("click",()=>{
         "You tapped with spirit!"
     ];
 
-    resultBox.innerHTML=`${funnyLines[Math.floor(Math.random()*funnyLines.length)]}<br><br>You were <b>${diff}</b> away.`;
+    resultBox.innerHTML =
+        `${funnyLines[Math.floor(Math.random() * funnyLines.length)]}<br><br>You were <b>${diff}</b> away.`;
     resultBox.classList.remove("hidden");
 
-    leaderboard_pushScore(pixelCount,target,diff);
+    leaderboard_pushScore(pixelCount, target, diff);
     leaderboard_show();
-
 });
 
-speedBtn.addEventListener("click",()=>{
-    if(!gameRunning)return;
+// === SPEED UP ===
+speedBtn.addEventListener("click", () => {
+    if (!gameRunning) return;
 
     audio_speedup();
 
-    speedMultiplier*=10;
+    speedMultiplier *= 10;
 
     tenXFlash.classList.remove("hidden");
-    setTimeout(()=>tenXFlash.classList.add("hidden"),800);
+    setTimeout(() => tenXFlash.classList.add("hidden"), 800);
 
     clearInterval(spawnTimer);
     startPixelSpawn();
 });
 
 resetGame();
-
