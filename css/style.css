@@ -184,54 +184,69 @@ body {
 }
 
 /* -------- Mobile Layout (iPhone 12–15 optimized) -------- */
+/* ====== MOBILE FIX — FINAL PROPER BUTTON SIZING ====== */
 @media (max-width: 900px) {
 
+    /* TITLE — pull down to avoid collisions */
     #title {
-        top: 6px;
-        font-size: 34px;
+        top: 10px;
+        font-size: 30px;
     }
 
+    /* HUD buttons */
     #hud {
-        top: 55px;
+        top: 60px;
     }
     #hud button {
-        padding: 8px 14px;
-        font-size: 15px;
-    }
-
-    #targetBox {
-        top: 110px;
-    }
-    #targetNumber {
-        font-size: 32px;
-        padding: 10px 16px;
-    }
-    #instruction {
+        padding: 6px 14px;
         font-size: 14px;
     }
 
+    /* Target Box */
+    #targetBox {
+        top: 120px;
+    }
+    #targetNumber {
+        font-size: 30px;
+        padding: 8px 14px;
+    }
+
+    /* STOP button — smaller + lower */
     #stopBtnArcade {
-        top: 54%;
+        top: 56% !important;
+        font-size: 20px !important;
+        padding: 8px 18px !important;
+        animation: none !important;     /* removes scaling */
     }
 
+    /* SPEED button — smaller + lower */
     #speedBtnArcade {
-        top: 64%;
+        top: 66% !important;
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+        animation: none !important;     /* removes scaling */
     }
 
+    /* 10X FLASH */
     #tenXFlash {
         top: 74%;
+        font-size: 40px;
     }
 
+    /* Final number */
     #finalNumber {
-        font-size: 80px;
-        top: 36%;
+        top: 38%;
+        font-size: 70px;
     }
 
+    /* Result box */
     #resultBox {
-        font-size: 18px;
-        top: 62%;
+        top: 63%;
+        font-size: 16px;
+        padding: 14px;
     }
 }
+
 
 /* -------- Utility -------- */
 .hidden { display: none !important; }
