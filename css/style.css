@@ -5,6 +5,8 @@
     box-sizing: border-box;
 }
 
+#gameArea { pointer-events: none; z-index: 1; }
+
 body {
     background: #000;
     font-family: 'Courier New', monospace;
