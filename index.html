@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixel Count Arcade</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        overflow: hidden;
+        font-family: "Courier New", monospace;
+        user-select: none;
+    }
+
+    /* ARCADE TITLE */
+    #title {
+        text-align: center;
+        font-size: 48px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #ffea00;
+        text-shadow: 
+            0 0 10px #ffea00,
+            0 0 25px #ffae00,
+            0 0 45px #ff6600,
+            0 0 80px #ff3300;
+        animation: titlePulse 2s infinite alternate;
+    }
+    @keyframes titlePulse {
+        from { text-shadow: 0 0 18px #ffea00, 0 0 60px #ff3300; }
+        to   { text-shadow: 0 0 28px #ffee55, 0 0 100px #ff4400; }
+    }
+
+    /* HUD BUTTON PANEL */
+    #hud {
+        position: fixed;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90vw;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 20px;
+        border: 3px solid #00eaff;
+        background: #111;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        text-shadow: 0 0 8px #00eaff;
+    }
+
+    button:hover {
+        background: #333;
+    }
+
+    /* STOP BUTTON SPECIAL STYLING */
+    #stopBtn {
+        background: #ff0033;
+        border-color: #ff6a6a;
+        font-weight: bold;
+        text-shadow: 0 0 10px #fff;
+    }
+
+    /* TARGET BOX */
+    #topBox {
+        text-align: center;
+        margin-top: 120px;
+        display: none;
+        z-index: 1000;
+        position: relative;
+    }
+
+    #targetNumber {
+        display: inline-block;
+        padding: 15px 25px;
+        background: #222;
+        font-size: 40px;
+        border: 4px solid #00ff88;
+        border-radius: 10px;
+        color: #00ff88;
+        text-shadow: 0 0 12px #00ff88;
+        box-shadow: 0 0 20px #00ff88;
+    }
+
+    #instruction {
+        font-size: 20px;
+        color: #d0ffd0;
+        margin-top: 5px;
+    }
+
+    /* FULL SCREEN GAME AREA */
+    #gameArea {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    /* PIXELS */
+    .pixel {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        transform: rotate(45deg);
+        border-radius: 2px;
+        pointer-events: none;
+        opacity: 0.9;
+    }
+
+    /* BORDER ANIMATION */
+    #borderLine {
+        position: absolute;
+        border: 4px solid #00ff88;
+        box-shadow: 0 0 10px #00ff88, 0 0 30px #00ffaa;
+        display: none;
+        pointer-events: none;
+        z-index: 900;
+    }
+
+    /* GO TIME */
+    #goTime {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 70px;
+        font-weight: bold;
+        color: #00ff88;
+        text-shadow: 0 0 25px #00ff88, 0 0 60px #00ffaa;
+        z-index: 2000;
+    }
+
+    /* 10X FLASH */
+    #tenXFlash {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 120px;
+        font-weight: bold;
+        color: #ff0000;
+        text-shadow: 0 0 30px #ff0000, 0 0 80px #ff2222;
+        z-index: 2000;
+        animation: flashPulse 0.8s infinite alternate;
+    }
+
+    @keyframes flashPulse {
+        from { opacity: 1; }
+        to   { opacity: 0.4; }
+    }
+
+    /* FINAL NUMBER */
+    #finalNumber {
+        display: none;
+        position: fixed;
+        top: 43%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 130px;
+        font-weight: bold;
+        color: #ffee55;
+        text-shadow: 0 0 20px #ffee55, 0 0 50px #ffaa00;
+        z-index: 2000;
+    }
+
+    #resultBox {
+        display: none;
+        position: fixed;
+        top: 63%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 32px;
+        white-space: pre-wrap;
+        text-shadow: 0 0 14px #00ff88;
+        z-index: 2000;
+    }
+</style>
+</head>
+<body>
+
+<div id="title">PIXEL COUNT</div>
+
+<div id="hud">
+    <button id="startBtn">START</button>
+    <button id="stopBtn">STOP</button>
+    <button id="speedBtn">↑↑ SPEED UP ↑↑</button>
+    <button id="resetBtn">RESET</button>
+</div>
+
+<div id="topBox">
+    <div id="targetNumber"></div>
+    <div id="instruction">Stop at this number</div>
+</div>
+
+<div id="gameArea"></div>
+
+<div id="borderLine"></div>
+<div id="goTime">GO TIME!</div>
+<div id="tenXFlash">10X</div>
+<div id="finalNumber"></div>
+<div id="resultBox"></div>
+
+<script>
+let gameRunning = false;
+let pixelCount = 0;
+let spawnRate = 1000;
+let spawnInterval;
+let speedIncreaseInterval;
+let targetNumber;
+
+const funnyPhrases = [
+    "You were lightyears off… but astronauts miss too.",
+    "Close enough for government work.",
+    "You tried. Gold star for effort.",
+    "Close-ish. Like darts in the dark.",
+    "You overshot that like my uncle at a buffet.",
+    "I've seen closer guesses from a Magic 8 Ball.",
+    "Respectfully… wow.",
+    "Hilariously inaccurate. Try again.",
+    "You almost broke math with that one.",
+    "Somewhere, a calculator is crying.",
+    "You were close! In a parallel universe.",
+    "You missed like a stormtrooper.",
+    "Nearly nailed it. Nearly.",
+    "You grazed the galaxy of correctness.",
+    "Not bad. Not good either.",
+    "You got spirit. Accuracy? No.",
+    "That was… something.",
+    "Your guess had emotional value.",
+    "That was boldly incorrect.",
+    "You swung hard and missed harder.",
+    "Close as my bank account to millionaire status.",
+    "A for effort. F for accuracy.",
+    "A cosmic miss, my friend.",
+    "Statistically improbable. Impressive.",
+    "That was brave.",
+    "You're consistent… consistently off.",
+    "So close the pixels giggled.",
+    "Not bad! Actually… kinda bad.",
+    "Your intuition needs new batteries.",
+    "Pixel gods say: try harder.",
+    "Respectfully: yikes.",
+    "A noble attempt!",
+    "Your guess was a plot twist.",
+    "A valiant fail.",
+    "You aimed for glory, hit potato.",
+    "Your strategy was… unique.",
+    "In the ballpark of a different sport.",
+    "You confused accuracy with enthusiasm.",
+    "Beautiful effort. Chaotic results.",
+    "That was almost art."
+];
+
+function randomColor() {
+    const colors = ["#ff4444","#44ff44","#4444ff","#ffff44","#ff44ff","#44ffff","#ffaaff"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+/* PIXEL SPAWNER */
+function spawnPixel() {
+    if (!gameRunning) return;
+
+    const gameArea = document.getElementById("gameArea");
+    const pixel = document.createElement("div");
+    pixel.className = "pixel";
+
+    const col = randomColor();
+    pixel.style.background = col;
+    pixel.style.boxShadow = `0 0 12px ${col}, 0 0 25px ${col}`;
+
+    pixel.style.left = Math.random() * (window.innerWidth - 20) + "px";
+    pixel.style.top = Math.random() * (window.innerHeight - 20) + "px";
+
+    gameArea.appendChild(pixel);
+    pixelCount++;
+}
+
+/* BORDER ANIMATION AROUND FULL SCREEN */
+function animateBorder(callback) {
+    const line = document.getElementById("borderLine");
+    line.style.display = "block";
+
+    const fullW = window.innerWidth;
+    const fullH = window.innerHeight;
+
+    line.style.left = "0px";
+    line.style.top = "0px";
+    line.style.width = "0px";
+    line.style.height = "0px";
+
+    let stage = 0;
+    let progress = 0;
+
+    const anim = setInterval(() => {
+        progress += 20;
+
+        if (stage === 0) {
+            line.style.width = `${progress}px`;
+            if (progress >= fullW) stage = 1, progress = 0;
+        } else if (stage === 1) {
+            line.style.height = `${progress}px`;
+            if (progress >= fullH) stage = 2, progress = 0;
+        } else if (stage === 2) {
+            line.style.width = `${fullW - progress}px`;
+            if (progress >= fullW) stage = 3, progress = 0;
+        } else if (stage === 3) {
+            line.style.height = `${fullH - progress}px`;
+            if (progress >= fullH) {
+                clearInterval(anim);
+                document.getElementById("goTime").style.display = "block";
+
+                setTimeout(() => {
+                    document.getElementById("goTime").style.display = "none";
+                    callback();
+                }, 900);
+            }
+        }
+    }, 10); // ~3.5 seconds total
+}
+
+/* START */
+document.getElementById("startBtn").onclick = () => {
+    if (gameRunning) return;
+
+    gameRunning = true;
+    pixelCount = 0;
+    spawnRate = 1000;
+
+    document.getElementById("finalNumber").style.display = "none";
+    document.getElementById("resultBox").style.display = "none";
+
+    targetNumber = Math.floor(Math.random() * 3630) + 69;
+    document.getElementById("targetNumber").innerText = targetNumber;
+    document.getElementById("topBox").style.display = "block";
+
+    animateBorder(() => {
+        spawnInterval = setInterval(spawnPixel, spawnRate);
+        speedIncreaseInterval = setInterval(speedUpPixels, 3000);
+    });
+};
+
+/* SPEED UP */
+function speedUpPixels() {
+    spawnRate = Math.max(2, spawnRate / 10);
+
+    clearInterval(spawnInterval);
+    spawnInterval = setInterval(spawnPixel, spawnRate);
+}
+
+document.getElementById("speedBtn").onclick = () => {
+    if (!gameRunning) return;
+
+    speedUpPixels();
+
+    const flash = document.getElementById("tenXFlash");
+    flash.style.display = "block";
+
+    setTimeout(() => {
+        flash.style.display = "none";
+    }, 3000);
+};
+
+/* STOP */
+document.getElementById("stopBtn").onclick = () => {
+    if (!gameRunning) return;
+
+    gameRunning = false;
+    clearInterval(spawnInterval);
+    clearInterval(speedIncreaseInterval);
+
+    const final = document.getElementById("finalNumber");
+    final.innerText = pixelCount;
+    final.style.display = "block";
+
+    const diff = Math.abs(pixelCount - targetNumber);
+    const phrase = funnyPhrases[Math.floor(Math.random() * funnyPhrases.length)];
+
+    const result = document.getElementById("resultBox");
+    result.innerText = `${phrase}\nYou were ${diff} numbers away.`;
+    result.style.display = "block";
+};
+
+/* RESET */
+document.getElementById("resetBtn").onclick = () => {
+    gameRunning = false;
+
+    clearInterval(spawnInterval);
+    clearInterval(speedIncreaseInterval);
+
+    document.getElementById("gameArea").innerHTML = "";
+    document.getElementById("finalNumber").style.display = "none";
+    document.getElementById("resultBox").style.display = "none";
+    document.getElementById("topBox").style.display = "none";
+};
+</script>
+
+</body>
+</html>
