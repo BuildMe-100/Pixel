@@ -98,4 +98,84 @@
     border-radius: 16px;
     padding: 35px 50px;
     text-align: center;
+}
 
+.lb-frame h2 {
+    font-size: 50px;
+    color: #ff00cc;
+    margin-bottom: 20px;
+    text-shadow:
+        0 0 18px #ff00ff,
+        0 0 45px #ff33dd;
+}
+
+#leaderboardList li {
+    color: #ffccff;
+    font-size: 26px;
+    padding: 4px 0;
+    text-shadow: 0 0 10px #ff55ff;
+}
+
+/* Close Button */
+#closeLeaderboard {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 24px;
+    border-radius: 10px;
+    border: 3px solid #ff00cc;
+    color: #ff55dd;
+    background: #330022;
+    cursor: pointer;
+
+    box-shadow: 0 0 20px #ff00cc;
+}
+
+/* ============================================
+   PIXEL EXPLOSION EFFECTS
+=============================================== */
+
+.pixel-explosion {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 1;
+    transform: rotate(45deg);
+    animation: pixelBlast 0.6s ease-out forwards;
+    border-radius: 2px;
+}
+
+@keyframes pixelBlast {
+    from {
+        transform: translate(0,0) scale(1) rotate(45deg);
+        opacity: 1;
+    }
+    to {
+        transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   INSERT COIN FRAME
+=============================================== */
+
+.coin-frame {
+    border: 4px solid #ff0088;
+    box-shadow:
+        0 0 25px #ff0088,
+        0 0 60px #ff22aa;
+    background: rgba(0,0,0,0.75);
+}
+
+.coin-text {
+    text-shadow: 
+        0 0 12px #ff00aa,
+        0 0 40px #ff0088;
+}
+
+/* ============================================
+   UTILITY
+=============================================== */
+.hidden {
+    display: none !important;
+}
