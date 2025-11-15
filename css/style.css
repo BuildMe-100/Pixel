@@ -166,3 +166,62 @@ body {
    ============================================================ */
 
 @media (max-width: 900px) {
+
+    /* Title */
+    #title {
+        top: calc(env(safe-area-inset-top) + 20px);
+        font-size: 32px;
+    }
+
+    /* HUD */
+    #hud {
+        top: calc(env(safe-area-inset-top) + 70px);
+    }
+    #hud button {
+        padding: 6px 14px;
+        font-size: 14px;
+    }
+
+    /* Target */
+    #targetBox { top: 135px; }
+    #targetNumber { font-size: 30px; padding: 8px 14px; }
+    #instruction { font-size: 14px; }
+
+    /* STOP Button */
+    #stopBtnArcade {
+        top: 56%;
+        font-size: 22px;
+        padding: 10px 22px;
+        animation: none !important;
+    }
+
+    /* SPEED Button */
+    #speedBtnArcade {
+        top: 66%;
+        font-size: 14px;
+        padding: 6px 14px;
+        animation: none !important;
+    }
+
+    /* 10X */
+    #tenXFlash {
+        top: 74%;
+        font-size: 40px;
+    }
+
+    /* Final Number */
+    #finalNumber {
+        top: 38%;
+        font-size: 70px;
+    }
+
+    /* Result */
+    #resultBox {
+        top: 63%;
+        font-size: 16px;
+        padding: 14px;
+    }
+}
+
+/* -------- Utility -------- */
+.hidden { display: none !important; }
