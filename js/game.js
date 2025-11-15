@@ -87,6 +87,7 @@ stopBtn.addEventListener("click", () => {
     setTimeout(() => stopBtn.classList.remove("stop-shockwave"), 350);
 
     audio_stop();
+     // HIDE STOP + SPEED BUTTONS
     stopBtn.classList.add("hidden");
     speedBtn.classList.add("hidden");
 
