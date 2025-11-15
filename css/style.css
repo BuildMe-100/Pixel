@@ -187,13 +187,27 @@ body {
     top: 63%;
 }
 
-#stopBtnArcade,
-#speedBtnArcade {
+/* ========= STOP / SPEED BUTTONS (DESKTOP) ========= */
+#stopBtnArcade {
+    position: fixed;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 18px 45px;
-    font-size: 40px;
+    padding: 14px 34px;      /* 3/4 size */
+    font-size: 30px;         /* 3/4 size */
     font-weight: 900;
+}
+
+#speedBtnArcade {
+    position: fixed;
+    top: 63%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 22px;      /* 1/2 size */
+    font-size: 20px;         /* 1/2 size */
+    font-weight: 900;
+}
+
 
     /* Mobile fix – prevents huge buttons */
     max-width: 80%;
@@ -280,17 +294,20 @@ body {
     }
 
     /* STOP button */
-    #stopBtnArcade {
-        top: 58%;
-        font-size: 26px;
-        padding: 12px 26px;
-    }
+    ##stopBtnArcade {
+    font-size: 24px;
+    padding: 10px 24px;
+    top: 52%;
+}
+
 
     /* SPEED UP button (much smaller) */
-    #speedBtnArcade {
-        top: 70%;
-        font-size: 18px;
-        padding: 8px 18px;
+   #speedBtnArcade {
+    font-size: 14px;
+    padding: 6px 16px;
+    top: 67%;
+}
+
     }
 
     /* 10X FLASH */
