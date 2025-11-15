@@ -1,182 +1,115 @@
-/* ============================================
-   ARCADE BUTTONS & UI ELEMENTS
-=============================================== */
+/* ============================================================
+   ARCADE UI — STOP, SPEED, 10X, and Button Effects
+   (Presentation-layer only — layout handled in style.css)
+   ============================================================ */
 
-/* -------- STOP BUTTON (Arcade Emergency Style) -------- */
+/* -------- STOP BUTTON (Arcade Emergency Red) -------- */
 #stopBtnArcade {
-    position: fixed;
-    padding: 20px 45px;       /* ⬅ reduced from 28px 60px (75% smaller) */
-    font-size: 36px;          /* ⬅ reduced from 48px */
+    padding: 18px 34px;       /* smaller desktop */
+    font-size: 32px;          /* 75% of original */
     font-weight: 900;
+
     background: #ff0033;
     color: #fff;
-    border: 4px solid #ff6666;  /* down from 5px */
-    border-radius: 14px;        /* slightly smaller */
-    text-shadow: 0 0 8px #fff;
+
+    border: 4px solid #ff6666;
+    border-radius: 14px;
+
+    text-shadow: 0 0 10px #fff;
+
     box-shadow:
         0 0 16px #ff0000,
-        0 0 30px #ff3333,
+        0 0 40px #ff3333,
         inset 0 0 10px #660000;
-    z-index: 3000;
-    cursor: pointer;
 
-    animation: stopButtonPulse 1.4s ease-in-out infinite;
+    cursor: pointer;
+    animation: stopButtonPulse 1.3s ease-in-out infinite;
 }
 
+/* STOP pulsing animation */
 @keyframes stopButtonPulse {
     0%   { transform: translate(-50%, -50%) scale(1); }
-    50%  { transform: translate(-50%, -50%) scale(1.03); }  /* reduced bounce */
+    50%  { transform: translate(-50%, -50%) scale(1.06); }
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Shockwave on click */
+/* Shockwave when clicked */
 .stop-shockwave {
-    animation: shockwave 0.5s ease-out;
+    animation: shockwave 0.45s ease-out;
 }
 
 @keyframes shockwave {
     0%   { box-shadow: 0 0 0px 0px rgba(255,0,0,0.7); }
-    100% { box-shadow: 0 0 40px 25px rgba(255,0,0,0); }
+    100% { box-shadow: 0 0 55px 35px rgba(255,0,0,0); }
 }
 
-/* -------- SPEED UP BUTTON (Electric Blue Style) -------- */
+
+
+/* -------- SPEED UP BUTTON (Electric Blue) -------- */
 #speedBtnArcade {
-    padding: 10px 25px;      /* ⬅ half of original (18px 45px) */
-    font-size: 18px;         /* ⬅ half of original 30px */
-    font-weight: bold;
+    padding: 10px 22px;       /* 50% of old size */
+    font-size: 20px;          /* smaller */
+    font-weight: 900;
+
     background: #0099ff;
-    border: 3px solid #33ccff; /* slightly smaller */
-    border-radius: 10px;
+    border: 3px solid #33ccff;
+    border-radius: 12px;
     color: #fff;
 
     text-shadow: 0 0 6px #fff;
+
     box-shadow:
-        0 0 14px #0099ff,
+        0 0 12px #0099ff,
         inset 0 0 6px #003355;
 
     cursor: pointer;
-    z-index: 3000;
-
-    animation: speedPulse 1.1s infinite alternate;
+    animation: speedPulse 1.0s infinite alternate;
 }
 
 @keyframes speedPulse {
-    from { box-shadow: 0 0 12px #0088ff; }
-    to   { box-shadow: 0 0 20px #33ccff; }
+    from { box-shadow: 0 0 14px #0088ff; }
+    to   { box-shadow: 0 0 24px #33ccff; }
 }
 
-/* -------- 10X FLASH -------- */
+
+
+/* -------- TEN X FLASH -------- */
 #tenXFlash {
-    font-size: 60px;     /* ⬅ previously too big / not rendering */
+    font-size: 70px;
     font-weight: 900;
     color: #ff0000;
 
     text-shadow:
-        0 0 16px #ff2222,
-        0 0 40px #ff0000,
-        0 0 60px #ff3333;
+        0 0 25px #ff2222,
+        0 0 55px #ff0000,
+        0 0 80px #ff3333;
 
     animation: tenXblink 0.8s infinite alternate;
-    z-index: 2500;
 }
 
 @keyframes tenXblink {
-    from { opacity: 1; transform: scale(1); }
-    to   { opacity: .5; transform: scale(1.04); }
+    from { opacity: 1; transform: translateX(-50%) scale(1); }
+    to   { opacity: 0.5; transform: translateX(-50%) scale(1.15); }
 }
 
 
-/* ============================================
-   ARCADE LEADERBOARD FRAME
-=============================================== */
-.lb-frame {
-    background: #000;
-    border: 4px solid #ff00cc;
-    box-shadow:
-        0 0 25px #ff00cc,
-        0 0 60px #990066;
 
-    border-radius: 16px;
-    padding: 35px 50px;
-    text-align: center;
-}
+/* ============================================================
+   MOBILE RESPONSIVE — smaller buttons for phones
+   ============================================================ */
+@media (max-width: 900px) {
 
-.lb-frame h2 {
-    font-size: 50px;
-    color: #ff00cc;
-    margin-bottom: 20px;
-    text-shadow:
-        0 0 18px #ff00ff,
-        0 0 45px #ff33dd;
-}
-
-#leaderboardList li {
-    color: #ffccff;
-    font-size: 26px;
-    padding: 4px 0;
-    text-shadow: 0 0 10px #ff55ff;
-}
-
-/* Close Button */
-#closeLeaderboard {
-    margin-top: 20px;
-    padding: 12px 30px;
-    font-size: 24px;
-    border-radius: 10px;
-    border: 3px solid #ff00cc;
-    color: #ff55dd;
-    background: #330022;
-    cursor: pointer;
-
-    box-shadow: 0 0 20px #ff00cc;
-}
-
-/* ============================================
-   PIXEL EXPLOSION EFFECTS
-=============================================== */
-
-.pixel-explosion {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    opacity: 1;
-    transform: rotate(45deg);
-    animation: pixelBlast 0.6s ease-out forwards;
-    border-radius: 2px;
-}
-
-@keyframes pixelBlast {
-    from {
-        transform: translate(0,0) scale(1) rotate(45deg);
-        opacity: 1;
+    #stopBtnArcade {
+        padding: 12px 26px;      /* reduced */
+        font-size: 22px;
     }
-    to {
-        transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(45deg);
-        opacity: 0;
+
+    #speedBtnArcade {
+        padding: 6px 14px;       /* reduced */
+        font-size: 14px;
     }
-}
 
-/* ============================================
-   INSERT COIN FRAME
-=============================================== */
-
-.coin-frame {
-    border: 4px solid #ff0088;
-    box-shadow:
-        0 0 25px #ff0088,
-        0 0 60px #ff22aa;
-    background: rgba(0,0,0,0.75);
-}
-
-.coin-text {
-    text-shadow: 
-        0 0 12px #ff00aa,
-        0 0 40px #ff0088;
-}
-
-/* ============================================
-   UTILITY
-=============================================== */
-.hidden {
-    display: none !important;
+    #tenXFlash {
+        font-size: 50px;
+    }
 }
