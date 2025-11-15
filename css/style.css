@@ -211,7 +211,7 @@ body {
     text-shadow:
         0 0 20px #ffee55,
         0 0 40px #ffaa00;
-    display: none;
+    
 }
 
 /* ========= RESULT BOX ========= */
@@ -227,7 +227,7 @@ body {
     border: 3px solid #000;
     padding: 20px 35px;
     text-align: center;
-    display: none;
+    
 }
 
 /* ========= STOP / SPEED BUTTONS ========= */
