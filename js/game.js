@@ -1,5 +1,6 @@
-// === Pixel Count Arcade - Core Engine ===
-// Clean + corrected version
+// ===========================================================
+// === Pixel Count Arcade - Final Clean Core Engine ===========
+// ===========================================================
 
 let gameRunning = false,
     spawnInterval = 900,
@@ -8,7 +9,7 @@ let gameRunning = false,
     spawnTimer = null,
     speedMultiplier = 1;
 
-// DOM
+// DOM References
 const gameArea       = document.getElementById("gameArea"),
       targetBox      = document.getElementById("targetBox"),
       targetNumber   = document.getElementById("targetNumber"),
@@ -16,81 +17,106 @@ const gameArea       = document.getElementById("gameArea"),
       resultBox      = document.getElementById("resultBox"),
       stopBtn        = document.getElementById("stopBtnArcade"),
       speedBtn       = document.getElementById("speedBtnArcade"),
-      hud            = document.getElementById("hud"),
       tenXFlash      = document.getElementById("tenXFlash"),
       startBtn       = document.getElementById("startBtn"),
       resetBtn       = document.getElementById("resetBtn"),
       insertCoin     = document.getElementById("insert-coin"),
       goTime         = document.getElementById("goTime");
 
-// === Reset ===
+// ===========================================================
+// RESET GAME — full reset with all UI cleared
+// ===========================================================
 function resetGame() {
     clearInterval(spawnTimer);
+
     pixelCount = 0;
     speedMultiplier = 1;
     spawnInterval = 900;
     gameRunning = false;
 
+    // Hide game UI
+    targetBox.classList.add("hidden");
     finalNumber.classList.add("hidden");
     resultBox.classList.add("hidden");
     stopBtn.classList.add("hidden");
     speedBtn.classList.add("hidden");
     tenXFlash.classList.add("hidden");
-    targetBox.classList.add("hidden");
 
+    // Reset target text
+    targetNumber.textContent = "";
+
+    // Remove all pixels
     gameArea.innerHTML = "";
+
+    // Show INSERT COIN again
     insertCoin.classList.remove("hidden");
 }
 
 resetBtn.addEventListener("click", resetGame);
 
-// === START ===
+// ===========================================================
+// START GAME
+// ===========================================================
 startBtn.addEventListener("click", () => {
     if (gameRunning) return;
 
     audio_insertCoin();
     insertCoin.classList.add("hidden");
 
+    // Generate target number between 69 and 3699
     target = Math.floor(Math.random() * 3630) + 69;
     targetNumber.textContent = target;
 
-    // Border animation → then game starts
-    setTimeout(() => border_startAnimation(() => {
-        goTime.classList.remove("hidden");
-        setTimeout(() => goTime.classList.add("hidden"), 1800);
+    // Border animation → then actual game start
+    setTimeout(() => {
+        border_startAnimation(() => {
 
-        gameRunning = true;
-        targetBox.classList.remove("hidden");
-        stopBtn.classList.remove("hidden");
-        speedBtn.classList.remove("hidden");
+            goTime.classList.remove("hidden");
+            setTimeout(() => goTime.classList.add("hidden"), 1800);
 
-        startPixelSpawn();
-    }), 200);
+            gameRunning = true;
+
+            targetBox.classList.remove("hidden");
+            stopBtn.classList.remove("hidden");
+            speedBtn.classList.remove("hidden");
+
+            startPixelSpawn();
+        });
+    }, 200);
 });
 
-// === Pixel Spawning ===
+// ===========================================================
+// PIXEL SPAWNING LOOP
+// ===========================================================
 function startPixelSpawn() {
     spawnTimer = setInterval(() => {
         pixelCount++;
         pixel_spawn(gameArea);
+
+        // ticking sound every 12 pixels
         if (pixelCount % 12 === 0) audio_tick();
+
     }, spawnInterval / speedMultiplier);
 }
 
-// === STOP BUTTON ===
+// ===========================================================
+// STOP BUTTON — freeze count + show results
+// ===========================================================
 stopBtn.addEventListener("click", () => {
+
     if (!gameRunning) return;
     gameRunning = false;
+
     clearInterval(spawnTimer);
 
     stopBtn.classList.add("stop-shockwave");
     setTimeout(() => stopBtn.classList.remove("stop-shockwave"), 350);
 
     audio_stop();
-     // HIDE STOP + SPEED BUTTONS
+
+    // Hide STOP + SPEED buttons
     stopBtn.classList.add("hidden");
     speedBtn.classList.add("hidden");
-
 
     // Show final number
     finalNumber.textContent = pixelCount;
@@ -111,7 +137,7 @@ stopBtn.addEventListener("click", () => {
         "Pixels bow to you!",
         "You're cracked at this!",
         "You are a pixel master!",
-        "One day… perfection.",
+        "One day… perfection!",
         "That was spicy!",
         "Brutal. I respect it.",
         "Glorious attempt!",
@@ -120,8 +146,8 @@ stopBtn.addEventListener("click", () => {
         "A true challenger!",
         "You came close…ish!",
         "You're in the zone!",
-        "This game LOVES you.",
-        "Pixels are terrified.",
+        "This game LOVES you!",
+        "Pixels are terrified!",
         "Legend in progress!",
         "Close enough for glory!",
         "Pixel storm rising!",
@@ -133,8 +159,8 @@ stopBtn.addEventListener("click", () => {
         "Big gamer energy!",
         "Top-tier chaos!",
         "You almost ascended!",
-        "Respectful miss.",
-        "Pixel gods smile.",
+        "Respectful miss!",
+        "Pixel gods smile!",
         "This run goes hard!",
         "Arcade destiny awaits!",
         "Fate was not aligned…",
@@ -142,26 +168,29 @@ stopBtn.addEventListener("click", () => {
     ];
 
     resultBox.innerHTML =
-        `${funnyLines[Math.floor(Math.random() * funnyLines.length)]}<br><br>You were <b>${diff}</b> away.`;
-    resultBox.classList.remove("hidden");
+        `${funnyLines[Math.floor(Math.random() * funnyLines.length)]}
+         <br><br>You were <b>${diff}</b> away.`;
 
-    leaderboard_pushScore(pixelCount, target, diff);
-    leaderboard_show();
+    resultBox.classList.remove("hidden");
 });
 
-// === SPEED UP ===
+// ===========================================================
+// SPEED UP BUTTON — x10 speed + flash animation
+// ===========================================================
 speedBtn.addEventListener("click", () => {
+
     if (!gameRunning) return;
 
     audio_speedup();
 
     speedMultiplier *= 10;
 
+    // SHOW 10X FLASH on top of everything
+    tenXFlash.style.zIndex = "9999";
     tenXFlash.classList.remove("hidden");
+
     setTimeout(() => tenXFlash.classList.add("hidden"), 800);
 
     clearInterval(spawnTimer);
     startPixelSpawn();
 });
-
-resetGame();
