@@ -5,8 +5,6 @@
     box-sizing: border-box;
 }
 
-#gameArea { pointer-events: none; z-index: 1; }
-
 body {
     background: #000;
     font-family: 'Courier New', monospace;
@@ -181,20 +179,10 @@ body {
 #stopBtnArcade {
     position: fixed;
     top: 50%;
-}
-#speedBtnArcade {
-    position: fixed;
-    top: 63%;
-}
-
-/* ========= STOP / SPEED BUTTONS (DESKTOP) ========= */
-#stopBtnArcade {
-    position: fixed;
-    top: 50%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 14px 34px;      /* 3/4 size */
-    font-size: 30px;         /* 3/4 size */
+    padding: 14px 34px;     /* 75% size */
+    font-size: 30px;
     font-weight: 900;
 }
 
@@ -203,15 +191,9 @@ body {
     top: 63%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 22px;      /* 1/2 size */
-    font-size: 20px;         /* 1/2 size */
+    padding: 10px 22px;     /* 50% size */
+    font-size: 20px;
     font-weight: 900;
-}
-
-
-    /* Mobile fix – prevents huge buttons */
-    max-width: 80%;
-    width: auto;
 }
 
 /* ========= 10X FLASH ========= */
@@ -261,87 +243,75 @@ body {
 .hidden { display: none !important; }
 
 /* ========= MOBILE LAYOUT ========= */
-/* ========= MOBILE LAYOUT FIXED ========= */
 @media (max-width: 900px) {
 
-    /* Keep title visible */
     #title {
-        font-size: 28px;
-        top: 20px;
+        font-size: 32px;
+        top: 6px;
     }
 
-    /* Start / Reset buttons */
     #hud {
-        top: 70px;
-        gap: 6px;
+        top: 55px;
+        gap: 8px;
     }
     #hud button {
-        padding: 6px 14px;
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+
+    #targetBox {
+        top: 115px;
+    }
+    #targetNumber {
+        font-size: 34px;
+        padding: 10px 16px;
+    }
+    #instruction {
         font-size: 14px;
     }
 
-    /* Target box */
-    #targetBox {
-        top: 135px;
-    }
-    #targetNumber {
-        font-size: 32px;
-        padding: 8px 14px;
-    }
-    #instruction {
-        margin-top: 4px;
-        font-size: 13px;
+    /* Smaller STOP button on mobile */
+    #stopBtnArcade {
+        font-size: 24px;
+        padding: 10px 24px;
+        top: 52%;
     }
 
-    /* STOP button */
-    ##stopBtnArcade {
-    font-size: 24px;
-    padding: 10px 24px;
-    top: 52%;
-}
-
-
-    /* SPEED UP button (much smaller) */
-   #speedBtnArcade {
-    font-size: 14px;
-    padding: 6px 16px;
-    top: 67%;
-}
-
-    }
-
-    /* 10X FLASH */
-    #tenXFlash {
-        top: 78%;
-        font-size: 42px;
-    }
-
-    /* Final number */
-    #finalNumber {
-        font-size: 60px;
-        top: 43%;
-    }
-
-    /* Result box */
-    #resultBox {
-        width: 85%;
-        font-size: 18px;
-        padding: 14px 16px;
+    /* Smaller SPEED button on mobile */
+    #speedBtnArcade {
+        font-size: 14px;
+        padding: 6px 16px;
         top: 67%;
     }
 
-    /* Leaderboard mobile */
+    #tenXFlash {
+        font-size: 50px;
+        top: 77%;
+    }
+
+    #finalNumber {
+        font-size: 80px;
+        top: 40%;
+    }
+
+    #resultBox {
+        font-size: 20px;
+        padding: 16px 20px;
+        top: 65%;
+        width: 80%;
+    }
+
     .lb-frame {
-        padding: 14px 14px;
+        padding: 20px;
     }
     .lb-frame h2 {
-        font-size: 26px;
+        font-size: 28px;
     }
     .lb-frame li {
-        font-size: 16px;
+        font-size: 18px;
     }
     #closeLeaderboard {
-        font-size: 16px;
-        padding: 6px 14px;
+        font-size: 18px;
+        padding: 8px 20px;
     }
 }
