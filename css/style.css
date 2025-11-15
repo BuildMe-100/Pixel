@@ -9,6 +9,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* ========= SAFARI / iPHONE SAFE AREA FIX ========= */
+html {
+    height: -webkit-fill-available;
+}
+
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    padding-top: env(safe-area-inset-top);
+}
 
 body {
     background: #000;
@@ -186,12 +196,12 @@ body {
 /* -------- Mobile Layout (iPhone 12–15 optimized) -------- */
 /* ====== MOBILE FIX — FINAL PROPER BUTTON SIZING ====== */
 @media (max-width: 900px) {
-
-    /* TITLE — pull down to avoid collisions */
     #title {
-        top: 10px;
-        font-size: 30px;
+        top: calc(env(safe-area-inset-top) + 30px);
+        font-size: 32px;
     }
+}
+
 
     /* HUD buttons */
     #hud {
