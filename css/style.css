@@ -12,12 +12,47 @@ body {
     color: #fff;
 }
 
+/* ========= LAYERING FOR THE ENTIRE GAME ========= */
+#title,
+#hud {
+    position: fixed;
+    z-index: 5000;  /* Always top */
+}
+
+#leaderboardPanel {
+    z-index: 4000;
+}
+
+#finalNumber,
+#resultBox,
+#goTime,
+#stopBtnArcade,
+#speedBtnArcade,
+#tenXFlash {
+    z-index: 3000;
+}
+
+#targetBox {
+    z-index: 2500;
+}
+
+#borderLine {
+    z-index: 2000;
+}
+
+#gameArea {
+    z-index: 1500;
+}
+
+#crt-filter {
+    z-index: 500;   /* low so all gameplay shows above it */
+}
+
 /* ========= CRT FILTER ========= */
 #crt-filter {
     pointer-events: none;
     position: fixed;
     inset: 0;
-    z-index: 999;
     background: repeating-linear-gradient(
         to bottom,
         rgba(255,255,255,0.05) 0px,
@@ -30,14 +65,12 @@ body {
 
 /* ========= TITLE ========= */
 #title {
-    position: fixed;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 48px;
     font-weight: 900;
     color: #ffea00;
-    z-index: 3000;
 
     text-shadow:
         0 0 10px #ffea00,
@@ -47,13 +80,11 @@ body {
 
 /* ========= HUD (START / RESET) ========= */
 #hud {
-    position: fixed;
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 12px;
-    z-index: 3000;
 }
 
 #hud button {
@@ -75,7 +106,6 @@ body {
 
 /* ========= INSERT COIN ========= */
 #insert-coin {
-    z-index: 2500;
     position: fixed;
     inset: 0;
     display: flex;
@@ -113,7 +143,6 @@ body {
     top: 160px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2000;
     text-align: center;
 }
 
@@ -143,7 +172,6 @@ body {
     position: fixed;
     inset: 0;
     overflow: hidden;
-    z-index: 100;
 }
 
 /* ========= BORDER ANIMATION ========= */
@@ -152,7 +180,6 @@ body {
     border: 4px solid #00ff88;
     box-shadow: 0 0 15px #00ff88, 0 0 40px #00ffaa;
     display: none;
-    z-index: 1400;
 }
 
 /* ========= GO TIME ========= */
@@ -170,8 +197,6 @@ body {
         0 0 15px #00ff88,
         0 0 35px #00ffaa,
         0 0 70px #00ffaa;
-
-    z-index: 2000;
 }
 
 /* ========= FINAL NUMBER ========= */
@@ -187,7 +212,6 @@ body {
         0 0 20px #ffee55,
         0 0 40px #ffaa00;
     display: none;
-    z-index: 2000;
 }
 
 /* ========= RESULT BOX ========= */
@@ -204,7 +228,30 @@ body {
     padding: 20px 35px;
     text-align: center;
     display: none;
-    z-index: 2000;
+}
+
+/* ========= STOP / SPEED BUTTONS ========= */
+#stopBtnArcade,
+#speedBtnArcade {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 18px 45px;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+/* ========= TEN X FLASH ========= */
+#tenXFlash {
+    position: fixed;
+    top: 72%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 70px;
+    color: #00aaff;
+    font-weight: 900;
+    text-shadow: 0 0 25px #00aaff;
+    display: none;
 }
 
 /* ========= LEADERBOARD ========= */
@@ -214,7 +261,6 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 4000;
 }
 
 .lb-frame {
