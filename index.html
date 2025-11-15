@@ -1,75 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Pixel Count Arcade</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pixel Count Arcade</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/arcade-ui.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/arcade-ui.css">
 </head>
 
 <body>
 
-    <div id="crt-filter"></div>
+<div id="crt-filter"></div>
 
-    <h1 id="title">PIXEL COUNT</h1>
+<h1 id="title">PIXEL COUNT</h1>
 
-    <div id="hud">
-        <button id="startBtn">START</button>
-        <button id="resetBtn">RESET</button>
+<div id="hud">
+    <button id="startBtn">START</button>
+    <button id="resetBtn">RESET</button>
+</div>
+
+<div id="insert-coin" class="hidden">
+    <div class="coin-frame">
+        <div class="coin-text">INSERT COIN</div>
     </div>
+</div>
 
-    <div id="insert-coin" class="hidden">
-        <div class="coin-frame">
-            <div class="coin-text">INSERT COIN</div>
-        </div>
+<div id="targetBox" class="hidden">
+    <div id="targetNumber"></div>
+    <div id="instruction">Stop at this number</div>
+</div>
+
+<div id="gameArea"></div>
+
+<div id="borderLine"></div>
+<div id="goTime" class="hidden">GO TIME!</div>
+
+<button id="stopBtnArcade" class="hidden">STOP</button>
+<button id="speedBtnArcade" class="hidden">↑↑ SPEED UP ↑↑</button>
+
+<div id="tenXFlash" class="hidden">10X</div>
+
+<div id="finalNumber" class="hidden"></div>
+<div id="resultBox" class="hidden"></div>
+
+<div id="leaderboardPanel" class="hidden">
+    <div class="lb-frame">
+        <h2>HIGH SCORES</h2>
+        <ol id="leaderboardList"></ol>
+        <button id="closeLeaderboard">CLOSE</button>
     </div>
+</div>
 
-    <div id="targetBox" class="hidden">
-        <div id="targetNumber"></div>
-        <div id="instruction">Stop at this number</div>
-    </div>
+<!-- Mobile viewport fix -->
+<script>
+function updateVH() {
+    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+}
+updateVH();
+window.addEventListener('resize', updateVH);
+</script>
 
-    <div id="gameArea"></div>
+<script src="js/audio.js"></script>
+<script src="js/pixels.js"></script>
+<script src="js/border.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/modes.js"></script>
 
-    <div id="borderLine"></div>
-    <div id="goTime" class="hidden">GO TIME!</div>
+<!-- FIXED LINE BELOW -->
+<script src="js/leaderboard.js"></script>
 
-    <button id="stopBtnArcade" class="hidden">STOP</button>
-    <button id="speedBtnArcade" class="hidden">↑↑ SPEED UP ↑↑</button>
-    <div id="tenXFlash" class="hidden">10X</div>
-
-    <div id="finalNumber" class="hidden"></div>
-    <div id="resultBox" class="hidden"></div>
-
-    <div id="leaderboardPanel" class="hidden">
-        <div class="lb-frame">
-            <h2>HIGH SCORES</h2>
-            <ol id="leaderboardList"></ol>
-            <button id="closeLeaderboard">CLOSE</button>
-        </div>
-    </div>
-
-    <!-- Handle mobile viewport height correctly -->
-    <script>
-    function updateVH() {
-        document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-        document.documentElement.style.setProperty('--vw', (window.innerWidth * 0.01) + 'px');
-    }
-    updateVH();
-    window.addEventListener('resize', updateVH);
-    </script>
-
-    <!-- GAME SCRIPTS -->
-    <script src="js/audio.js"></script>
-    <script src="js/pixels.js"></script>
-    <script src="js/border.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/modes.js"></script>
-    <script src="js/leaderboard.js"></script> <!-- FIXED -->
-    <script src="js/crt.js"></script>
-    <script src="js/game.js"></script>
+<script src="js/crt.js"></script>
+<script src="js/game.js"></script>
 
 </body>
 </html>
