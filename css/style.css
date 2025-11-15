@@ -202,7 +202,7 @@ body {
 /* ========= FINAL NUMBER ========= */
 #finalNumber {
     position: fixed;
-    top: 33%;
+    top: 43%;           /* moved DOWN from 33% → 43% */
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 120px;
@@ -211,8 +211,8 @@ body {
     text-shadow:
         0 0 20px #ffee55,
         0 0 40px #ffaa00;
-    
 }
+
 
 /* ========= RESULT BOX ========= */
 #resultBox {
