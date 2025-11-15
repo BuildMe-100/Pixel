@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Pixel Count Arcade</title>
 
 <style>
@@ -13,163 +13,180 @@
         user-select: none;
     }
 
-    /* ARCADE TITLE */
+    /* ---------------- HUD + TITLE ---------------- */
     #title {
-        text-align: center;
-        font-size: 48px;
-        font-weight: bold;
-        margin-top: 10px;
-        color: #ffea00;
-        text-shadow: 
-            0 0 10px #ffea00,
-            0 0 25px #ffae00,
-            0 0 45px #ff6600,
-            0 0 80px #ff3300;
-        animation: titlePulse 2s infinite alternate;
-    }
-    @keyframes titlePulse {
-        from { text-shadow: 0 0 18px #ffea00, 0 0 60px #ff3300; }
-        to   { text-shadow: 0 0 28px #ffee55, 0 0 100px #ff4400; }
-    }
-
-    /* HUD BUTTON PANEL */
-    #hud {
         position: fixed;
-        top: 60px;
+        top: 5px;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 1000;
+        color: #ffea00;
+        font-size: 48px;
+        font-weight: bold;
+        text-shadow: 
+            0 0 12px #ffea00,
+            0 0 25px #ffaa00,
+            0 0 40px #ff4400,
+            0 0 70px #ff1100;
+        z-index: 2000;
+        animation: marqueePulse 2s infinite alternate;
+    }
+
+    @keyframes marqueePulse {
+        from { text-shadow: 0 0 15px #ffea00, 0 0 60px #ff4400; }
+        to   { text-shadow: 0 0 30px #ffee55, 0 0 100px #ff2200; }
+    }
+
+    #hud {
+        position: fixed;
+        top: 75px;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 90vw;
+        z-index: 2000;
     }
 
     button {
         padding: 12px 24px;
-        font-size: 20px;
+        font-size: 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
         border: 3px solid #00eaff;
         background: #111;
         color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        text-shadow: 0 0 8px #00eaff;
+        text-shadow: 0 0 6px #00eaff;
     }
 
-    button:hover {
+    #startBtn:hover, #resetBtn:hover {
         background: #333;
     }
 
-    /* STOP BUTTON SPECIAL STYLING */
-    #stopBtn {
-        background: #ff0033;
-        border-color: #ff6a6a;
-        font-weight: bold;
-        text-shadow: 0 0 10px #fff;
-    }
-
-    /* TARGET BOX */
+    /* ---------------- TARGET NUMBER ---------------- */
     #topBox {
+        position: fixed;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
         text-align: center;
-        margin-top: 120px;
         display: none;
-        z-index: 1000;
-        position: relative;
+        z-index: 2000;
     }
 
     #targetNumber {
-        display: inline-block;
         padding: 15px 25px;
         background: #222;
-        font-size: 40px;
         border: 4px solid #00ff88;
         border-radius: 10px;
+        font-size: 42px;
         color: #00ff88;
-        text-shadow: 0 0 12px #00ff88;
+        text-shadow: 0 0 10px #00ff88;
         box-shadow: 0 0 20px #00ff88;
     }
 
     #instruction {
+        color: #ccffcc;
+        margin-top: 8px;
         font-size: 20px;
-        color: #d0ffd0;
-        margin-top: 5px;
     }
 
-    /* FULL SCREEN GAME AREA */
+    /* ---------------- FULLSCREEN GAME AREA ---------------- */
     #gameArea {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        inset: 0;
         overflow: hidden;
         z-index: 1;
+        background: transparent;
     }
 
-    /* PIXELS */
-    .pixel {
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        transform: rotate(45deg);
-        border-radius: 2px;
-        pointer-events: none;
-        opacity: 0.9;
-    }
-
-    /* BORDER ANIMATION */
+    /* ---------------- BORDER ANIMATION ---------------- */
     #borderLine {
-        position: absolute;
+        position: fixed;
         border: 4px solid #00ff88;
-        box-shadow: 0 0 10px #00ff88, 0 0 30px #00ffaa;
+        box-shadow: 0 0 12px #00ff88, 0 0 30px #00ffaa;
         display: none;
+        z-index: 1500;
         pointer-events: none;
-        z-index: 900;
     }
 
-    /* GO TIME */
+    /* ---------------- GO TIME ---------------- */
     #goTime {
         display: none;
         position: fixed;
-        top: 50%;
+        top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 70px;
-        font-weight: bold;
         color: #00ff88;
-        text-shadow: 0 0 25px #00ff88, 0 0 60px #00ffaa;
+        font-size: 72px;
+        font-weight: bold;
+        text-shadow: 0 0 20px #00ff88, 0 0 40px #00ffaa;
+        z-index: 1500;
+    }
+
+    /* ---------------- STOP + SPEED UP BUTTONS ---------------- */
+    #stopBtnArcade {
+        display: none;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ff0033;
+        border: 4px solid #ff6666;
+        color: #fff;
+        padding: 26px 44px;
+        font-size: 40px;
+        font-weight: bold;
+        border-radius: 14px;
+        text-shadow: 0 0 10px #fff;
+        box-shadow: 0 0 20px #ff0000, 0 0 60px #ff3333;
         z-index: 2000;
     }
 
-    /* 10X FLASH */
+    #speedBtnArcade {
+        display: none;
+        position: fixed;
+        top: 58%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0088ff;
+        border: 3px solid #44ccff;
+        padding: 16px 36px;
+        color: white;
+        font-size: 24px;
+        border-radius: 10px;
+        text-shadow: 0 0 6px #ffffff;
+        box-shadow: 0 0 15px #0088ff;
+        z-index: 2000;
+    }
+
+    /* ---------------- 10X FLASH ---------------- */
     #tenXFlash {
         display: none;
         position: fixed;
-        top: 50%;
+        top: 48%;
         left: 50%;
         transform: translate(-50%, -50%);
+        color: #ff0000;
         font-size: 120px;
         font-weight: bold;
-        color: #ff0000;
-        text-shadow: 0 0 30px #ff0000, 0 0 80px #ff2222;
-        z-index: 2000;
-        animation: flashPulse 0.8s infinite alternate;
+        text-shadow: 0 0 40px #ff0000, 0 0 80px #ff0000;
+        animation: flash 0.8s infinite alternate;
+        z-index: 3000;
     }
 
-    @keyframes flashPulse {
+    @keyframes flash {
         from { opacity: 1; }
-        to   { opacity: 0.4; }
+        to { opacity: 0.3; }
     }
 
-    /* FINAL NUMBER */
+    /* ---------------- RESULTS BOX ---------------- */
     #finalNumber {
         display: none;
         position: fixed;
-        top: 43%;
+        top: 33%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 130px;
+        font-size: 120px;
         font-weight: bold;
         color: #ffee55;
         text-shadow: 0 0 20px #ffee55, 0 0 50px #ffaa00;
@@ -177,58 +194,75 @@
     }
 
     #resultBox {
-    display: none;
-    position: fixed;
-    top: 63%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 28px;
-    white-space: pre-wrap;
-    padding: 20px 30px;
-    background: rgba(255,255,255,0.95);
-    color: #000;
-    border-radius: 12px;
-    border: 3px solid #000;
-    box-shadow: 0 0 20px #ffffff;
-    z-index: 2000;
-    max-width: 80vw;
-    text-align: center;
-}
+        display: none;
+        position: fixed;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255,255,255,0.95);
+        color: #000;
+        padding: 20px 35px;
+        font-size: 26px;
+        border-radius: 14px;
+        border: 3px solid #000;
+        max-width: 80vw;
+        text-align: center;
+        z-index: 2000;
+    }
 </style>
 </head>
 <body>
 
+<!-- TOP HUD TITLE -->
 <div id="title">PIXEL COUNT</div>
 
+<!-- HUD BUTTONS -->
 <div id="hud">
     <button id="startBtn">START</button>
-    <button id="stopBtn">STOP</button>
-    <button id="speedBtn">↑↑ SPEED UP ↑↑</button>
     <button id="resetBtn">RESET</button>
 </div>
 
+<!-- TARGET BOX -->
 <div id="topBox">
     <div id="targetNumber"></div>
     <div id="instruction">Stop at this number</div>
 </div>
 
+<!-- FULLSCREEN GAME AREA -->
 <div id="gameArea"></div>
 
+<!-- Border Animation -->
 <div id="borderLine"></div>
+
+<!-- GO TIME -->
 <div id="goTime">GO TIME!</div>
+
+<!-- STOP & SPEED BUTTONS -->
+<button id="stopBtnArcade">STOP</button>
+<button id="speedBtnArcade">↑↑ SPEED UP ↑↑</button>
+
+<!-- FLASH -->
 <div id="tenXFlash">10X</div>
+
+<!-- FINAL CLEAR RESULTS -->
 <div id="finalNumber"></div>
 <div id="resultBox"></div>
 
 <script>
+/* ---------------- VARIABLES ---------------- */
 let gameRunning = false;
 let pixelCount = 0;
 let spawnRate = 1000;
-let spawnInterval;
-let speedIncreaseInterval;
 let targetNumber;
+let spawnInterval;
+let speedInterval;
+let usingCanvas = false;
+let canvas, ctx;
 
-const funnyPhrases = [
+const thresholdForCanvas = 2500;
+
+/* ---------------- FUNNY PHRASES ---------------- */
+const phrases = [
     "You were lightyears off… but astronauts miss too.",
     "Close enough for government work.",
     "You tried. Gold star for effort.",
@@ -271,146 +305,194 @@ const funnyPhrases = [
     "That was almost art."
 ];
 
-function randomColor() {
-    const colors = ["#ff4444","#44ff44","#4444ff","#ffff44","#ff44ff","#44ffff","#ffaaff"];
-    return colors[Math.floor(Math.random() * colors.length)];
+/* ---------------- HYBRID PIXEL ENGINE ---------------- */
+function setupCanvas() {
+    canvas = document.createElement("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.position = "fixed";
+    canvas.style.inset = "0";
+    canvas.style.zIndex = "1";
+    canvas.style.pointerEvents = "none";
+    ctx = canvas.getContext("2d");
+    document.body.appendChild(canvas);
+    usingCanvas = true;
 }
 
-/* PIXEL SPAWNER */
-function spawnPixel() {
+function drawCanvasPixel() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+
+    ctx.fillStyle = `rgba(${Math.floor(Math.random()*255)}, 
+                          ${Math.floor(Math.random()*255)}, 
+                          ${Math.floor(Math.random()*255)}, 
+                          0.9)`;
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.rect(x, y, 10, 10);
+    ctx.fill();
+}
+
+/* ---------------- DOM PIXEL MODE ---------------- */
+function spawnDomPixel() {
     if (!gameRunning) return;
 
-    const gameArea = document.getElementById("gameArea");
-    const pixel = document.createElement("div");
-    pixel.className = "pixel";
+    if (pixelCount > thresholdForCanvas && !usingCanvas) {
+        switchToCanvas();
+        return;
+    }
 
-    const col = randomColor();
-    pixel.style.background = col;
-    pixel.style.boxShadow = `0 0 12px ${col}, 0 0 25px ${col}`;
+    const p = document.createElement("div");
+    p.className = "pixel";
+    p.style.background = `#${Math.floor(Math.random()*0xffffff).toString(16)}`;
+    p.style.left = Math.random() * (window.innerWidth-20) + "px";
+    p.style.top = Math.random() * (window.innerHeight-20) + "px";
+    p.style.boxShadow = `0 0 10px ${p.style.background}`;
+    document.getElementById("gameArea").appendChild(p);
 
-    pixel.style.left = Math.random() * (window.innerWidth - 20) + "px";
-    pixel.style.top = Math.random() * (window.innerHeight - 20) + "px";
-
-    gameArea.appendChild(pixel);
     pixelCount++;
 }
 
-/* BORDER ANIMATION AROUND FULL SCREEN */
+function switchToCanvas() {
+    setupCanvas();
+    document.getElementById("gameArea").innerHTML = "";
+}
+
+function spawnPixel() {
+    if (!gameRunning) return;
+
+    if (usingCanvas) return drawCanvasPixel();
+    spawnDomPixel();
+}
+
+/* ---------------- BORDER ANIMATION ---------------- */
 function animateBorder(callback) {
     const line = document.getElementById("borderLine");
     line.style.display = "block";
 
-    const fullW = window.innerWidth;
-    const fullH = window.innerHeight;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
 
-    line.style.left = "0px";
-    line.style.top = "0px";
-    line.style.width = "0px";
-    line.style.height = "0px";
-
-    let stage = 0;
-    let progress = 0;
+    let stage = 0, p = 0;
 
     const anim = setInterval(() => {
-        progress += 20;
+        p += 20;
 
         if (stage === 0) {
-            line.style.width = `${progress}px`;
-            if (progress >= fullW) stage = 1, progress = 0;
+            line.style.left = "0px";
+            line.style.top = "0px";
+            line.style.width = p + "px";
+            line.style.height = "0px";
+            if (p >= W) stage=1,p=0;
         } else if (stage === 1) {
-            line.style.height = `${progress}px`;
-            if (progress >= fullH) stage = 2, progress = 0;
+            line.style.width = W+"px";
+            line.style.height = p+"px";
+            if (p >= H) stage=2,p=0;
         } else if (stage === 2) {
-            line.style.width = `${fullW - progress}px`;
-            if (progress >= fullW) stage = 3, progress = 0;
+            line.style.left = p+"px";
+            line.style.width = (W-p)+"px";
+            if (p >= W) stage=3,p=0;
         } else if (stage === 3) {
-            line.style.height = `${fullH - progress}px`;
-            if (progress >= fullH) {
+            line.style.top = p+"px";
+            line.style.height = (H-p)+"px";
+            if (p >= H) {
                 clearInterval(anim);
-                document.getElementById("goTime").style.display = "block";
-
-                setTimeout(() => {
-                    document.getElementById("goTime").style.display = "none";
+                line.style.display="none";
+                document.getElementById("goTime").style.display="block";
+                setTimeout(()=>{
+                    document.getElementById("goTime").style.display="none";
                     callback();
-                }, 900);
+                },900);
             }
         }
-    }, 10); // ~3.5 seconds total
+    },10);
 }
 
-/* START */
+/* ---------------- START ---------------- */
 document.getElementById("startBtn").onclick = () => {
     if (gameRunning) return;
 
     gameRunning = true;
     pixelCount = 0;
     spawnRate = 1000;
+    usingCanvas = false;
+    document.getElementById("gameArea").innerHTML = "";
+    if (canvas) canvas.remove();
 
-    document.getElementById("finalNumber").style.display = "none";
-    document.getElementById("resultBox").style.display = "none";
-
-    targetNumber = Math.floor(Math.random() * 3630) + 69;
+    targetNumber = Math.floor(Math.random()*3630)+69;
+    document.getElementById("topBox").style.display="block";
     document.getElementById("targetNumber").innerText = targetNumber;
-    document.getElementById("topBox").style.display = "block";
+    document.getElementById("stopBtnArcade").style.display="none";
+    document.getElementById("speedBtnArcade").style.display="none";
 
-    animateBorder(() => {
+    animateBorder(()=>{
+        document.getElementById("stopBtnArcade").style.display="block";
+        document.getElementById("speedBtnArcade").style.display="block";
         spawnInterval = setInterval(spawnPixel, spawnRate);
-        speedIncreaseInterval = setInterval(speedUpPixels, 3000);
+        speedInterval = setInterval(()=>speedUpPixels(false),3000);
     });
 };
 
-/* SPEED UP */
-function speedUpPixels() {
-    spawnRate = Math.max(2, spawnRate / 10);
-
+/* ---------------- SPEED UP ---------------- */
+function speedUpPixels(fromButton) {
+    spawnRate = Math.max(3, spawnRate/10);
     clearInterval(spawnInterval);
     spawnInterval = setInterval(spawnPixel, spawnRate);
+
+    if (fromButton) {
+        const flash = document.getElementById("tenXFlash");
+        flash.style.display = "block";
+        setTimeout(()=>flash.style.display="none",3000);
+    }
 }
 
-document.getElementById("speedBtn").onclick = () => {
+document.getElementById("speedBtnArcade").onclick = () => {
     if (!gameRunning) return;
-
-    speedUpPixels();
-
-    const flash = document.getElementById("tenXFlash");
-    flash.style.display = "block";
-
-    setTimeout(() => {
-        flash.style.display = "none";
-    }, 3000);
+    speedUpPixels(true);
 };
 
-/* STOP */
-document.getElementById("stopBtn").onclick = () => {
+/* ---------------- STOP ---------------- */
+document.getElementById("stopBtnArcade").onclick = () => {
     if (!gameRunning) return;
 
     gameRunning = false;
     clearInterval(spawnInterval);
-    clearInterval(speedIncreaseInterval);
+    clearInterval(speedInterval);
 
-    const final = document.getElementById("finalNumber");
-    final.innerText = pixelCount;
-    final.style.display = "block";
+    document.getElementById("stopBtnArcade").style.display="none";
+    document.getElementById("speedBtnArcade").style.display="none";
+
+    const finalNumber = document.getElementById("finalNumber");
+    finalNumber.innerText = pixelCount;
+    finalNumber.style.display = "block";
 
     const diff = Math.abs(pixelCount - targetNumber);
-    const phrase = funnyPhrases[Math.floor(Math.random() * funnyPhrases.length)];
-
-    const result = document.getElementById("resultBox");
-    result.innerText = `${phrase}\nYou were ${diff} numbers away.`;
-    result.style.display = "block";
+    const phrase = phrases[Math.floor(Math.random()*phrases.length)];
+    const resultBox = document.getElementById("resultBox");
+    resultBox.innerText = `${phrase}\nYou were ${diff} numbers away.`;
+    resultBox.style.display = "block";
 };
 
-/* RESET */
+/* ---------------- RESET ---------------- */
 document.getElementById("resetBtn").onclick = () => {
     gameRunning = false;
 
     clearInterval(spawnInterval);
-    clearInterval(speedIncreaseInterval);
+    clearInterval(speedInterval);
 
-    document.getElementById("gameArea").innerHTML = "";
-    document.getElementById("finalNumber").style.display = "none";
-    document.getElementById("resultBox").style.display = "none";
-    document.getElementById("topBox").style.display = "none";
+    pixelCount = 0;
+    document.getElementById("finalNumber").style.display="none";
+    document.getElementById("resultBox").style.display="none";
+    document.getElementById("topBox").style.display="none";
+    document.getElementById("stopBtnArcade").style.display="none";
+    document.getElementById("speedBtnArcade").style.display="none";
+
+    document.getElementById("gameArea").innerHTML="";
+    if (canvas) {
+        canvas.remove();
+        usingCanvas=false;
+    }
 };
 </script>
 
