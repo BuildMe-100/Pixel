@@ -172,7 +172,7 @@ body {
         top: calc(env(safe-area-inset-top) + 20px);
         font-size: 32px;
     }
-}
+
     /* HUD */
     #hud {
         top: calc(env(safe-area-inset-top) + 70px);
@@ -221,6 +221,8 @@ body {
         font-size: 16px;
         padding: 14px;
     }
+
+}  /* <-- THIS is the correct final closing brace */
 
 
 /* -------- Utility -------- */
