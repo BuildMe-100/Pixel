@@ -87,6 +87,9 @@ stopBtn.addEventListener("click", () => {
     setTimeout(() => stopBtn.classList.remove("stop-shockwave"), 350);
 
     audio_stop();
+    stopBtn.classList.add("hidden");
+    speedBtn.classList.add("hidden");
+
 
     // Show final number
     finalNumber.textContent = pixelCount;
