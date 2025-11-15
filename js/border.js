@@ -59,5 +59,5 @@ function border_startAnimation(done){
         requestAnimationFrame(step);
     }
 
-    requestAnimatio
-
+    requestAnimationFrame(step);
+}
